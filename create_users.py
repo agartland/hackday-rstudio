@@ -17,8 +17,7 @@ if __name__ == '__main__':
         print('Specify a roster CSV')
 
     roster = pd.read_csv(roster_fn)
-
-    for r in roster.iterrows():
-        username = r['first'].lower() + r['last'].lower()
-        username = username.replace('-', '').replace(' ', '')
-        add_user(username)
+    for i, r in roster.iterrows():
+        add_user(r['username'])
+    for i in range(10):
+    	add_user(f'extra_user{i}')
