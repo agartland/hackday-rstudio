@@ -18,8 +18,17 @@ if __name__ == '__main__':
     except IndexError:
         print('Specify a roster CSV')
 
-    roster = pd.read_csv(roster_fn)
-    for i, r in roster.iterrows():
-        add_user(r['username'])
+    with open(roster_fn, 'r') as fh:
+        s = fh.read()
+    roster = s.split('\n')[1:]
+    for r in roster:
+        try:
+            username = r.split(',')[1]
+            print(username)
+            add_user(username)
+        except IndexError:
+            pass
+
     for i in range(10):
-    	add_user(f'extra_user{i}')
+        add_user(f'extra_user{i}')
+
