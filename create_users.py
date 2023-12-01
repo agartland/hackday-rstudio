@@ -1,12 +1,14 @@
 import os
 import subprocess
 import sys
+import pandas as pd
 
 def add_user(username):
     password = username
     try:
         # executing useradd command using subprocess module
-        subprocess.run(['useradd', '-m', '-p', password, username ])   
+        subprocess.run(['useradd', '-m', username ])   
+        subprocess.run(f'echo {username}:{username} | chpasswd', shell=True) 
     except:
         print(f"Failed to add user: {username}")                    
 
