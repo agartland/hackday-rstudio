@@ -1,7 +1,6 @@
 import os
 import subprocess
 import sys
-import pandas as pd
 
 def add_user(username):
     password = username
@@ -30,5 +29,7 @@ if __name__ == '__main__':
             pass
 
     for i in range(10):
-        add_user(f'extra_user{i}')
+        username = f'extra_user{i}'
+        print(username)
+        add_user(username)
 

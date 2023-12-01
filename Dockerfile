@@ -41,3 +41,5 @@ RUN Rscript -e 'devtools::install_github("BIGslu/kimma")'
 
 # WGCNA has depencies in bioconductor
 RUN Rscript -e 'install.packages("WGCNA", repos="https://cran.rstudio.com")'
+
+RUN apt-get install nano
