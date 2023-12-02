@@ -43,3 +43,6 @@ RUN Rscript -e 'devtools::install_github("BIGslu/kimma")'
 RUN Rscript -e 'install.packages("WGCNA", repos="https://cran.rstudio.com")'
 
 RUN apt-get install nano
+
+RUN Rscript -e 'install.packages("statmod", repos="https://cran.rstudio.com")'
+RUN Rscript -e 'install.packages("ggpubr", repos="https://cran.rstudio.com")'
