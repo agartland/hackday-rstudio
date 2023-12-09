@@ -3,6 +3,7 @@ FROM rocker/tidyverse:4.2.3
 # update libraries
 RUN apt-get -y update
 RUN apt-get install nano
+RUN apt-get install cmake
 
 # non-interactive mode
 ENV DEBIAN_FRONTEND=noninteractive
@@ -13,9 +14,15 @@ ENV DEBIAN_FRONTEND=noninteractive
 # RUN rm /home/lib/r_package_installs.R
 # Seurat, GGally, tidygraph, WGCNA, fgsea, pheatmap, tmod, msigdbr, ggbeeswarm, ggExtra, ggrepel, igraph, patchwork
 
-RUN Rscript -e 'install.packages("lme4", repos="https://cran.rstudio.com")'
+RUN Rscript -e 'remove.packages("Matrix", lib="/usr/local/lib/R/library")'
+RUN Rscript -e 'install.packages("nloptr", repos="https://cran.rstudio.com")'
+
+RUN Rscript -e 'devtools::install_github("lme4/lme4", dependencies=TRUE)'
+# RUN Rscript -e 'install.packages("lme4", repos="https://cran.rstudio.com")'
 RUN Rscript -e 'install.packages("Seurat", repos="https://cran.rstudio.com")'
+
 RUN Rscript -e 'install.packages("edgeR", repos="https://cran.rstudio.com")'
+RUN Rscript -e 'install.packages("palmerpenguins", repos="https://cran.rstudio.com")'
 
 RUN Rscript -e 'if (!require("BiocManager", quietly = TRUE)) install.packages("BiocManager")'
 RUN Rscript -e 'BiocManager::install("limma")'
