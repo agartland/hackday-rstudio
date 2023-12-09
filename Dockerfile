@@ -3,7 +3,7 @@ FROM rocker/tidyverse:4.2.3
 # update libraries
 RUN apt-get -y update
 RUN apt-get install nano
-RUN apt-get install cmake
+RUN apt-get -y install cmake
 
 # non-interactive mode
 ENV DEBIAN_FRONTEND=noninteractive
