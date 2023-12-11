@@ -47,7 +47,7 @@ RUN Rscript -e 'install.packages("patchwork", repos="https://cran.rstudio.com")'
 # WGCNA has depencies in bioconductor
 RUN Rscript -e 'install.packages("WGCNA", repos="https://cran.rstudio.com")'
 
-RUN Rscript -e 'remove.packages("RcppEigen", lib="/usr/local/lib/R/library")'
+RUN Rscript -e 'remove.packages("RcppEigen")'
 RUN Rscript -e 'devtools::install_github("RcppCore/RcppEigen", dependencies=TRUE)'
 RUN Rscript -e 'install.packages("Seurat", repos="https://cran.rstudio.com")'
 RUN Rscript -e 'devtools::install_github("lme4/lme4", dependencies=TRUE)'
