@@ -15,11 +15,8 @@ ENV DEBIAN_FRONTEND=noninteractive
 # Seurat, GGally, tidygraph, WGCNA, fgsea, pheatmap, tmod, msigdbr, ggbeeswarm, ggExtra, ggrepel, igraph, patchwork
 
 RUN Rscript -e 'remove.packages("Matrix", lib="/usr/local/lib/R/library")'
+RUN Rscript -e 'devtools::install_github("cran/Matrix", dependencies=TRUE)'
 RUN Rscript -e 'install.packages("nloptr", repos="https://cran.rstudio.com")'
-
-RUN Rscript -e 'devtools::install_github("lme4/lme4", dependencies=TRUE)'
-# RUN Rscript -e 'install.packages("lme4", repos="https://cran.rstudio.com")'
-RUN Rscript -e 'install.packages("Seurat", repos="https://cran.rstudio.com")'
 
 RUN Rscript -e 'install.packages("edgeR", repos="https://cran.rstudio.com")'
 RUN Rscript -e 'install.packages("palmerpenguins", repos="https://cran.rstudio.com")'
@@ -31,8 +28,6 @@ RUN Rscript -e 'BiocManager::install("impute")'
 RUN Rscript -e 'BiocManager::install("preprocessCore")'
 RUN Rscript -e 'BiocManager::install("GO.db")'
 RUN Rscript -e 'BiocManager::install("fgsea")'
-
-RUN Rscript -e 'devtools::install_github("BIGslu/kimma")'
 
 RUN Rscript -e 'install.packages("GGally", repos="https://cran.rstudio.com")'
 RUN Rscript -e 'install.packages("tidygraph", repos="https://cran.rstudio.com")'
@@ -51,3 +46,10 @@ RUN Rscript -e 'install.packages("patchwork", repos="https://cran.rstudio.com")'
 
 # WGCNA has depencies in bioconductor
 RUN Rscript -e 'install.packages("WGCNA", repos="https://cran.rstudio.com")'
+
+RUN Rscript -e 'remove.packages("RcppEigen", lib="/usr/local/lib/R/library")'
+RUN Rscript -e 'devtools::install_github("RcppCore/RcppEigen", dependencies=TRUE)'
+RUN Rscript -e 'install.packages("Seurat", repos="https://cran.rstudio.com")'
+RUN Rscript -e 'devtools::install_github("lme4/lme4", dependencies=TRUE)'
+# RUN Rscript -e 'install.packages("lme4", repos="https://cran.rstudio.com")'
+RUN Rscript -e 'devtools::install_github("BIGslu/kimma")'
