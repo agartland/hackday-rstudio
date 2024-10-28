@@ -1,4 +1,4 @@
-FROM rocker/tidyverse:4.2.3
+FROM rocker/tidyverse:4.4.0
 
 # update libraries
 RUN apt-get -y update
