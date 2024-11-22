@@ -17,11 +17,10 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN Rscript -e 'remove.packages("Matrix", lib="/usr/local/lib/R/library")'
 RUN Rscript -e 'devtools::install_github("cran/Matrix", dependencies=TRUE)'
 RUN Rscript -e 'install.packages("nloptr", repos="https://cran.rstudio.com")'
-
-RUN Rscript -e 'install.packages("edgeR", repos="https://cran.rstudio.com")'
 RUN Rscript -e 'install.packages("palmerpenguins", repos="https://cran.rstudio.com")'
 
 RUN Rscript -e 'if (!require("BiocManager", quietly = TRUE)) install.packages("BiocManager")'
+RUN Rscript -e 'BiocManager::install("edgeR")'
 RUN Rscript -e 'BiocManager::install("limma")'
 RUN Rscript -e 'BiocManager::install("DESeq2")'
 RUN Rscript -e 'BiocManager::install("impute")'
