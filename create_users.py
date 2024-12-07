@@ -32,4 +32,3 @@ if __name__ == '__main__':
         username = f'extra_user{i}'
         print(username)
         add_user(username)
-
