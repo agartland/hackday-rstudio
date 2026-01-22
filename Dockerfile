@@ -19,7 +19,7 @@ RUN Rscript -e 'remove.packages("Matrix", lib="/usr/local/lib/R/library")' && \
     Rscript -e 'devtools::install_github("cran/Matrix", dependencies=TRUE)'
 
 # Fix RcppEigen (required for lme4)
-RUN Rscript -e 'remove.packages("RcppEigen")' && \
+RUN Rscript -e 'if ("RcppEigen" %in% rownames(installed.packages())) remove.packages("RcppEigen")' && \
     Rscript -e 'devtools::install_github("RcppCore/RcppEigen", dependencies=TRUE)'
 
 # Install BiocManager and Bioconductor packages
@@ -47,6 +47,9 @@ RUN Rscript -e 'install.packages(c( \
     "summarytools", \
     "knitr", \
     "kableExtra", \
+    "janitor", \
+    "writexl", \
+    "fmsb", \
     "ggpubr", \
     "ragg" \
 ), repos="https://cran.rstudio.com")'
@@ -67,6 +70,7 @@ RUN Rscript -e 'install.packages(c( \
 RUN Rscript -e 'install.packages(c( \
     "tableone", \
     "gtsummary", \
+    "ctrdata", \
     "emmeans", \
     "broom", \
     "gt", \
