@@ -29,6 +29,11 @@ RUN Rscript -e 'if (!require("BiocManager", quietly = TRUE)) install.packages("B
 # Commented out Bioconductor packages - uncomment as needed
 # RUN Rscript -e 'BiocManager::install(c("edgeR", "limma", "DESeq2", "preprocessCore", "GO.db", "fgsea"), ask=FALSE, update=FALSE)'
 
+# Install Quarto
+RUN wget https://github.com/quarto-dev/quarto-cli/releases/download/v1.4.550/quarto-1.4.550-linux-amd64.deb && \
+    dpkg -i quarto-1.4.550-linux-amd64.deb && \
+    rm quarto-1.4.550-linux-amd64.deb
+
 # CRAN packages - consolidated into single install call
 RUN Rscript -e 'install.packages(c( \
     "nloptr", \
