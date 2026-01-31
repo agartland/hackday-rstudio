@@ -4,13 +4,23 @@ FROM rocker/tidyverse:4.4.0
 ENV DEBIAN_FRONTEND=noninteractive
 
 # System dependencies - combine into single layer
+# System dependencies - combine into single layer
 RUN apt-get -y update && \
     apt-get install -y --no-install-recommends \
         nano \
         cmake \
         libxt-dev \
         libcairo2-dev \
-        libv8-dev && \
+        libv8-dev \
+        libmagick++-dev \
+        net-tools \
+        htop \
+        vim \
+        curl \
+        wget \
+        tree \
+        psmisc \
+        procps && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
@@ -34,6 +44,8 @@ RUN wget https://github.com/quarto-dev/quarto-cli/releases/download/v1.4.550/qua
     dpkg -i quarto-1.4.550-linux-amd64.deb && \
     rm quarto-1.4.550-linux-amd64.deb
 
+RUN echo 'options(repos = c(CRAN = "https://cloud.r-project.org"))' >> /etc/R/Rprofile.site
+
 # CRAN packages - consolidated into single install call
 RUN Rscript -e 'install.packages(c( \
     "nloptr", \
@@ -42,6 +54,7 @@ RUN Rscript -e 'install.packages(c( \
     "tidygraph", \
     "statmod", \
     "pheatmap", \
+    "pkgload", \
     "tmod", \
     "ggbeeswarm", \
     "ggExtra", \
@@ -56,8 +69,10 @@ RUN Rscript -e 'install.packages(c( \
     "writexl", \
     "fmsb", \
     "ggpubr", \
+    "magick", \
+    "openxlsx", \
     "ragg" \
-), repos="https://cran.rstudio.com")'
+), repos="https://cloud.r-project.org")'
 
 # Survival analysis packages
 RUN Rscript -e 'install.packages(c( \
@@ -69,7 +84,7 @@ RUN Rscript -e 'install.packages(c( \
     "cmprsk", \
     "timereg", \
     "coxme" \
-), repos="https://cran.rstudio.com")'
+), repos="https://cloud.r-project.org")'
 
 # Clinical trial reporting and table packages
 RUN Rscript -e 'install.packages(c( \
@@ -80,10 +95,10 @@ RUN Rscript -e 'install.packages(c( \
     "broom", \
     "gt", \
     "flextable" \
-), repos="https://cran.rstudio.com")'
+), repos="https://cloud.r-project.org")'
 
 # Commented out CRAN packages - uncomment as needed
-# RUN Rscript -e 'install.packages(c("msigdbr", "Seurat", "WGCNA"), repos="https://cran.rstudio.com")'
+# RUN Rscript -e 'install.packages(c("msigdbr", "Seurat", "WGCNA"), repos="https://cloud.r-project.org")'
 
 # GitHub packages (need separate installs due to dependencies)
 RUN Rscript -e 'devtools::install_github("lme4/lme4", dependencies=TRUE)'
